@@ -1,5 +1,12 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
+<script type="text/javascript" src="http://www.google.com/jsapi">
+</script>
+
+<script type="text/javascript">
+google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
+</script>
+
 
 
 <input type="button" id="button1" value="Button1">
@@ -11,7 +18,45 @@
 <P>
 <login2>Paragraph 2</login2>
 
-<p><iframe width="480" height="360" src="http://www.youtube.com/embed/divpZVLQBuo" frameborder="0" allowfullscreen></iframe></p>
+
+
+
+<div id="feeddiv"></div>
+
+<script type="text/javascript">
+
+var feedcontainer=document.getElementById("feeddiv")
+var feedurl="http://www.epressdistribution.com/rss.asp?id=656&max=20&full=N"
+var feedlimit=20
+var rssoutput="<b>Latest News:</b><br /><ul>"
+
+function rssfeedsetup(){
+var feedpointer=new google.feeds.Feed(feedurl) //Google Feed API method
+feedpointer.setNumEntries(feedlimit) //Google Feed API method
+feedpointer.load(displayfeed) //Google Feed API method
+}
+
+function displayfeed(result){
+if (!result.error){
+var thefeeds=result.feed.entries
+for (var i=0; i<thefeeds.length; i++)
+
+rssoutput+="<li><a href='" + thefeeds[i].link + "' target='_blank'>" + thefeeds[i].title + "</a><br/>" + thefeeds[i].content + "</li>"
+
+rssoutput+="</ul>"
+feedcontainer.innerHTML=rssoutput
+}
+else
+alert("Error fetching feeds!")
+}
+
+window.onload=function(){
+rssfeedsetup()
+}
+
+</script>
+
+
 
 <script>
 $("#button1").click(function () {
