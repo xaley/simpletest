@@ -17,6 +17,8 @@
         Darren Chow
     </author>
 
+	<access origin="http://www.google.com" subdomains="true" browserOnly="false" /> 
+
 	<icon src="icon.png" />
 	<gap:splash src="splash.png" />
 
